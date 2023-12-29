@@ -209,12 +209,12 @@ class _TasksScreenState extends State<TasksScreen> {
                     scrollDirection: Axis.vertical,
                     itemCount: tasks.length,
                     itemBuilder: (context, index) {
-                      bool isClicked = false;
+                      List<bool> isClickedList = List<bool>.filled(tasks.length, false);
                       return ListTile(
                         title: Text(
                           tasks[index],
                           style: TextStyle(
-                            decoration: isClicked ? TextDecoration.lineThrough : null,
+                            decoration: isClickedList[index] ? TextDecoration.lineThrough : null,
                             color: Colors.black,
                             fontSize: 14.0,
                             fontWeight: FontWeight.w500,
@@ -222,11 +222,11 @@ class _TasksScreenState extends State<TasksScreen> {
                         ),
                         trailing: StatefulBuilder(builder: (context, setState) {
                           return Checkbox(
-                            value: isClicked,
-                            onChanged: (clicked) {
+                            value: isClickedList[index],
+                            onChanged: (newBooleanValue) {
                               setState(
                                 () {
-                                  isClicked = clicked!;
+                                  isClickedList[index] = newBooleanValue ?? false;
                                 },
                               );
                             },
